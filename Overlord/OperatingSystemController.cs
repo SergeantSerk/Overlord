@@ -3,17 +3,15 @@ using System.Runtime.Versioning;
 
 namespace Overlord
 {
-    public class OperatingSystemController : IOperatingSystemController
+    [SupportedOSPlatform("windows")]
+    public class WindowsController : IOperatingSystemController
     {
-        [SupportedOSPlatform("windows")]
         [DllImport("user32.dll")]
         private static extern void LockWorkStation();
 
-        [SupportedOSPlatform("windows")]
         [DllImport("user32.dll")]
         private static extern int ExitWindowsEx(int uFlags, int dwReason);
 
-        [SupportedOSPlatform("windows")]
         [DllImport("Powrprof.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
         private static extern bool SetSuspendState(bool hiberate, bool forceCritical, bool disableWakeEvent);
 
@@ -34,13 +32,11 @@ namespace Overlord
             ForceIfHung = 0x00000010
         }
 
-        [SupportedOSPlatform("windows")]
         public void Hibernate()
         {
             SetSuspendState(true, true, true);
         }
 
-        [SupportedOSPlatform("windows")]
         public void Restart(bool force)
         {
             int flag =
@@ -49,7 +45,6 @@ namespace Overlord
             ExitWindowsEx(flag, 0);
         }
 
-        [SupportedOSPlatform("windows")]
         public void Shutdown(bool force)
         {
             int flag =
@@ -58,19 +53,16 @@ namespace Overlord
             ExitWindowsEx(flag, 0);
         }
 
-        [SupportedOSPlatform("windows")]
         public void Sleep()
         {
             SetSuspendState(false, true, true);
         }
 
-        [SupportedOSPlatform("windows")]
         public void Lock()
         {
             LockWorkStation();
         }
 
-        [SupportedOSPlatform("windows")]
         public void Logoff(bool force)
         {
             int flag =
