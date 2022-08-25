@@ -26,7 +26,6 @@ namespace Overlord.Api.Controllers
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                _logger.LogInformation($"OS is {nameof(OSPlatform.Windows)}, controller initialised with {nameof(WindowsController)}");
                 operatingSystemController = new WindowsController();
             }
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
