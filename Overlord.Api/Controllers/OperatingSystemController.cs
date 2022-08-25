@@ -7,16 +7,6 @@ namespace Overlord.Api.Controllers
     [Route("[controller]")]
     public class OperatingSystemController : ControllerBase
     {
-        public enum Action
-        {
-            Logoff,
-            Shutdown,
-            Restart,
-            Sleep,
-            Hibernate,
-            Lock
-        }
-
         private readonly ILogger<OperatingSystemController> _logger;
         private readonly IOperatingSystemController operatingSystemController;
 
@@ -46,33 +36,45 @@ namespace Overlord.Api.Controllers
             }
         }
 
-        [HttpGet]
-        public string Get(Action action, bool force)
+        [HttpGet("logoff")]
+        public string Logoff(bool force)
         {
-            switch (action)
-            {
-                case Action.Logoff:
-                    operatingSystemController.Logoff(force);
-                    break;
-                case Action.Shutdown:
-                    operatingSystemController.Shutdown(force);
-                    break;
-                case Action.Restart:
-                    operatingSystemController.Restart(force);
-                    break;
-                case Action.Sleep:
-                    operatingSystemController.Sleep();
-                    break;
-                case Action.Hibernate:
-                    operatingSystemController.Hibernate();
-                    break;
-                case Action.Lock:
-                    operatingSystemController.Lock();
-                    break;
-                default:
-                    throw new NotImplementedException();
-            }
+            operatingSystemController.Logoff(force);
+            return "Done.";
+        }
 
+        [HttpGet("shutdown")]
+        public string Shutdown(bool force)
+        {
+            operatingSystemController.Shutdown(force);
+            return "Done.";
+        }
+
+        [HttpGet("restart")]
+        public string Restart(bool force)
+        {
+            operatingSystemController.Restart(force);
+            return "Done.";
+        }
+
+        [HttpGet("sleep")]
+        public string Sleep()
+        {
+            operatingSystemController.Sleep();
+            return "Done.";
+        }
+
+        [HttpGet("hibernate")]
+        public string Hibernate()
+        {
+            operatingSystemController.Hibernate();
+            return "Done.";
+        }
+
+        [HttpGet("lock")]
+        public string Lock()
+        {
+            operatingSystemController.Lock();
             return "Done.";
         }
     }
