@@ -1,12 +1,14 @@
-﻿namespace Overlord
+﻿using static Overlord.WindowsController;
+
+namespace Overlord
 {
     public interface IOperatingSystemController
     {
-        public void Shutdown(bool force);
-        public void Restart(bool force);
+        public void Shutdown(WindowsForceFlags forceFlags);
+        public void Restart(WindowsForceFlags forceFlags);
         public void Hibernate();
         public void Sleep();
         public void Lock();
-        public void Logoff(bool force);
+        public void Logoff(WindowsForceFlags forceFlags);
     }
 }

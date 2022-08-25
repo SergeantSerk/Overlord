@@ -37,19 +37,15 @@ namespace Overlord
             SetSuspendState(true, true, true);
         }
 
-        public void Restart(bool force)
+        public void Restart(WindowsForceFlags forceFlags)
         {
-            int flag =
-                (int)WindowsFlags.Reboot |
-                (int)(force ? WindowsForceFlags.ForceIfHung : WindowsForceFlags.None);
+            int flag = (int)WindowsFlags.Reboot | (int)forceFlags;
             ExitWindowsEx(flag, 0);
         }
 
-        public void Shutdown(bool force)
+        public void Shutdown(WindowsForceFlags forceFlags)
         {
-            int flag =
-                (int)WindowsFlags.Shutdown |
-                (int)(force ? WindowsForceFlags.ForceIfHung : WindowsForceFlags.None);
+            int flag = (int)WindowsFlags.Shutdown | (int)forceFlags;
             ExitWindowsEx(flag, 0);
         }
 
@@ -63,11 +59,9 @@ namespace Overlord
             LockWorkStation();
         }
 
-        public void Logoff(bool force)
+        public void Logoff(WindowsForceFlags forceFlags)
         {
-            int flag =
-                (int)WindowsFlags.Shutdown |
-                (int)(force ? WindowsForceFlags.ForceIfHung : WindowsForceFlags.None);
+            int flag = (int)WindowsFlags.Shutdown | (int)forceFlags;
             ExitWindowsEx(flag, 0);
         }
     }
