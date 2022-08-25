@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using System.Runtime.InteropServices;
 
 namespace Overlord.Api.Controllers
 {
@@ -22,7 +23,27 @@ namespace Overlord.Api.Controllers
         public OperatingSystemController(ILogger<OperatingSystemController> logger)
         {
             _logger = logger;
-            operatingSystemController = new WindowsController();
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                operatingSystemController = new WindowsController();
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                throw new NotImplementedException();
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                throw new NotImplementedException();
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.FreeBSD))
+            {
+                throw new NotImplementedException();
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
         }
 
         [HttpGet]
